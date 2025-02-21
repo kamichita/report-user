@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>報告フォーム</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: url('./Styles.png') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            margin: 2rem;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
+        .help-text {
+            display: block;
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            line-height: 1.4;
+            white-space: pre-line;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        #successMessage, #errorMessage {
+            display: none;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        #successMessage {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        #errorMessage {
+            background-color: var(--error-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>報告フォーム</h1>
+        <form id="reportForm">
+            <div class="form-group">
+                <label for="category">カテゴリー*</label>
+                <select id="category" name="category" required>
+                    <option value="">選択してください</option>
+                    <option value="荒らし・ハッカー">荒らし・ハッカー</option>
+                    <option value="嫌がらせ・誹謗中傷">嫌がらせ・誹謗中傷</option>
+                    <option value="詐欺">詐欺</option>
+                    <option value="ルール違反">ルール違反</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="username">報告対象者のユーザー名*</label>
+                <input type="text" id="username" name="username" required>
+                <small class="help-text">不正行為を行ったユーザーの名前を入力してください。</small>
+            </div>
+
+            <div class="form-group">
+                <label for="userid">報告対象者のユーザーID*</label>
+                <input type="text" id="userid" name="userid" required>
+                <small class="help-text">
+                    ユーザーIDの確認方法：
+                    1. ユーザーのプロフィールを右クリック
+                    2. 「IDをコピー」を選択
+                    ※ Discordの開発者モードを有効にしている必要があります。
+                    
+                    開発者モードの有効化手順：
+                    1. Discordの設定を開く
+                    2. 「アプリの設定」→「詳細設定」
+                    3. 「開発者モード」をオンにする</small>
+            </div>
+
+            <div class="form-group">
+                <label for="details">詳細*</label>
+                <textarea id="details" name="details" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">画像（任意）</label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <small class="help-text">画像ファイルをアップロードできます（JPG, PNG, GIF）</small>
+            </div>
+
+            <button type="submit" id="submitButton">送信</button>
+        </form>
+
+        <div id="successMessage">報告を受け付けました。ご協力ありがとうございます。</div>
+        <div id="errorMessage"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
