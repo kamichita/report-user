@@ -3,31 +3,26 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # メインブランチ名に応じて変更してください
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+      - main  # mainブランチにpushされた場合にデプロイ
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    - name: Check out the code
+      uses: actions/checkout@v2
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+    - name: Set up Node.js (必要に応じて)
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
+    - name: Build the project (オプションでビルドステップを追加)
+      run: npm install && npm run build  # 必要に応じてビルドコマンドを追加
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./  # デプロイするディレクトリ（プロジェクトのルートディレクトリ）
