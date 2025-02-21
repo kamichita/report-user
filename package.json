@@ -1,0 +1,16 @@
+{
+  "name": "discord-report-form",
+  "version": "1.0.0",
+  "description": "A simple form to send reports to Discord via a webhook.",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server", 
+    "build": "echo 'No build step required'" 
+  },
+  "dependencies": {
+    "live-server": "^1.2.1"
+  },
+  "devDependencies": {},
+  "author": "Your Name",
+  "license": "MIT"
+}
