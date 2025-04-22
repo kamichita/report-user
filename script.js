@@ -1,6 +1,6 @@
 // script.js
 // Discord Webhook URL（GitHub Secretsから取得）
-const WEBHOOK_URL = 'https://discord.com/api/webhooks/1342406906035306536/Uy5RAK5KSbX3BQu7vXzl8HMc--mNinkoMT9jUD48EqN0reCksTh7TkFXRgWUAJE6kRXg';
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1349340153583370362/iGi7H9jdVBI56dHW432r6_w3ZTxa1ECP_4MBWhIvTxmKqO-BcKnoZ_Me7GvC75ms-NUV';
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('reportForm');
