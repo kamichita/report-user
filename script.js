@@ -1,6 +1,9 @@
 // Discord Webhook URL（GitHub Secretsから取得）
 const WEBHOOK_URL = 'https://discord.com/api/webhooks/1367443152046391336/z80qt8U5P1ZwWWyqcz8aPMNucoS6p2YA_j66DqX4aFVqc4fehqa69Ggh9Die4lPEWi-p';
 
+// reCAPTCHA シークレットトークン（キャプチャのトークンを使用）
+const RECAPTCHA_SECRET_KEY = '0x4AAAAAABYVbk-ykyfOpQMHZiieNVvzpIw'; // ここはバックエンドで設定すべきですが、フロントエンドに書く場合は注意
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('reportForm');
     const submitButton = document.getElementById('submitButton');
@@ -10,12 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        // キャプチャのトークンを取得
         const token = document.querySelector('textarea[name="cf-turnstile-response"]')?.value;
         if (!token) {
             showError("認証に失敗しました。もう一度お試しください。");
             return;
         }
 
+        // トークンをサーバー側で検証することが推奨されますが、ここではフロントエンドでそのまま送信する形です。
+        // キャプチャのトークンもWebhookのデータに追加
         submitButton.disabled = true;
         submitButton.textContent = '送信中...';
         errorMessage.style.display = 'none';
@@ -45,7 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         { name: '詳細', value: details || '未入力' }
                     ],
                     timestamp: new Date().toISOString()
-                }]
+                }],
+                // reCAPTCHAトークンもWebhookのデータとして送信
+                custom_fields: {
+                    recaptcha_token: token
+                }
             };
 
             if (imageBase64) {
