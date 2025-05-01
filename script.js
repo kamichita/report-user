@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // キャプチャのトークンを取得
+        // Cloudflare Turnstileのトークンを取得
         const token = document.querySelector('textarea[name="cf-turnstile-response"]')?.value;
         if (!token) {
             showError("認証に失敗しました。もう一度お試しください。");
